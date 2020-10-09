@@ -1,0 +1,15 @@
+/**
+ * @author <your-name-here>
+ * Matrikelnummer:
+ */
+
+package fuhrpark.fahrzeuge.dao;
+
+
+import fuhrpark.fahrzeuge.Fahrzeug;
+
+public class SerializedFahrzeugDAO implements FahrzeugDAO {
+	
+	
+
+}
