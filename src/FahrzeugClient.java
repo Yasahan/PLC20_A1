@@ -9,16 +9,20 @@ import java.util.ArrayList;
 public class FahrzeugClient {
 
 	public static void main(String[] args) throws IOException {
+		// java -jar PLC_Aufgabe1.jar app Fahrzeuge
 
 		String dataName = args[0];
+		String method =  args[1];
+		String fahrzeugTyp = args[2];
+		int id = Integer.parseInt(args[3]);
+		String marke = args[4];
+		String modell = args[5];
+		int baujahr = Integer.parseInt(args[6]);
+		double grundPreis = Double.parseDouble(args[7]);
+		int letzteService = Integer.parseInt(args[8])
+				;
 		File f = new File(dataName);
 		FahrzeugManagement fahrzeugManagement;
-		String marke;
-		String modell;
-		int baujahr;
-		double grundPreis;
-		int letzteService;
-
 
 		if(args.length < 2){
 			throw new IllegalArgumentException("Parameter ungueltig.");
@@ -37,37 +41,37 @@ public class FahrzeugClient {
 			out.close();
 		}
 
-		switch (args[1]){
+		switch (method){
 			case "show" :
-				if(args[2].isEmpty()){
+				if(String.valueOf(id).isEmpty()){
 					fahrzeugManagement.getAllFahrzeugeInfo();
 				}
 				else {
-					fahrzeugManagement.getFahrzeugInfo(Integer.parseInt(args[3]));
+					fahrzeugManagement.getFahrzeugInfo(id);
 				}
 				break;
 			case "add" :
-				if(args[3].isEmpty()){
+				if(fahrzeugTyp.isEmpty()){
 					System.out.println("Bitte geben Sie das Fahrzeugtyp an");
 				}
-				else if (args[3].toUpperCase().equals("LKW")) {
-					fahrzeugManagement.addNewFahrzeug(new Lkw(Integer.parseInt(args[4]), args[5], args[6], Integer.parseInt(args[7]), Double.parseDouble(args[8])));
+				else if (fahrzeugTyp.toUpperCase().equals("LKW")) {
+					fahrzeugManagement.addNewFahrzeug(new Lkw(id, marke, modell, baujahr, grundPreis));
 				}
-				else if (args[3].toUpperCase().equals("PKW")){
-					fahrzeugManagement.addNewFahrzeug(new Pkw(Integer.parseInt(args[4]), args[5], args[6], Integer.parseInt(args[7]), Double.parseDouble(args[8]), Integer.parseInt(args[9])));
+				else if (fahrzeugTyp.toUpperCase().equals("PKW")){
+					fahrzeugManagement.addNewFahrzeug(new Pkw(id, marke, modell, baujahr, grundPreis, letzteService));
 				}
 				break;
 			case "del" :
-				fahrzeugManagement.deleteFahrzeug(Integer.parseInt(args[2]));
+				fahrzeugManagement.deleteFahrzeug(id);
 				break;
 			case "count" :
-				if(args[2].isEmpty()){
+				if(fahrzeugTyp.isEmpty()){
 					fahrzeugManagement.amountOfAllFahrzeuge();
 				}
-				else if(args[2].toUpperCase().equals("LKW")){
+				else if(fahrzeugTyp.toUpperCase().equals("LKW")){
 					fahrzeugManagement.amountOfAllLkw();
 				}
-				else if (args[2].toUpperCase().equals("PKW")){
+				else if (fahrzeugTyp.toUpperCase().equals("PKW")){
 					fahrzeugManagement.amountOfAllPkw();
 				}
 				break;
@@ -81,6 +85,8 @@ public class FahrzeugClient {
 		}
 
 
+
+/*
 		Pkw neuPkw = new Pkw(14, "Mercedes", "C-Classe", 1998, 1000.250, 2005);
 		Pkw neuPkw2 = new Pkw(15, "Bmw", "M3", 2015, 512000.250, 2015);
 		Lkw neuPkw3 = new Lkw(16,"Audi", "A8", 2020, 25000);
@@ -97,10 +103,7 @@ public class FahrzeugClient {
 		System.out.println(fahrzeugManagement.amountOfAllPkw());
 		fahrzeugManagement.deleteFahrzeug(neuPkw2.getId());
 		System.out.println(fahrzeugManagement.averagePriceOfFahrzeuge());
-		fahrzeugManagement.getAllFahrzeugeInfo();
-
-
-
+		fahrzeugManagement.getAllFahrzeugeInfo();*/
 
 	}
 

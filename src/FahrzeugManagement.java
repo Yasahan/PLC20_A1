@@ -15,6 +15,9 @@ public class FahrzeugManagement {
     }
 
     public void getAllFahrzeugeInfo(){
+        if(fahrzeugDAO.getFahrzeugList().isEmpty()){
+            System.out.println("Es gibt momentan keine Fahrzeuge.");
+        }
         fahrzeugDAO.getFahrzeugList().forEach(System.out::println);
     }
 
@@ -29,10 +32,12 @@ public class FahrzeugManagement {
 
     public void addNewFahrzeug(Fahrzeug fahrzeug){
         fahrzeugDAO.speichereFahrzeug(fahrzeug);
+        System.out.println("Fahrzeug wurde erfolgreich hinzugefuegt!");
     }
 
     public void deleteFahrzeug(int id){
         fahrzeugDAO.loescheFahrzeug(id);
+        System.out.println("Fahrzeug wurde erfolgreich geloescht!");
     }
 
     public int amountOfAllFahrzeuge(){
