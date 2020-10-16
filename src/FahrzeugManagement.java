@@ -1,3 +1,4 @@
+import java.util.Comparator;
 import java.util.stream.Collectors;
 
 /**
@@ -17,16 +18,21 @@ public class FahrzeugManagement {
         fahrzeugDAO.getFahrzeugList().forEach(System.out::println);
     }
 
-    public void getFahrzeugInfo(Fahrzeug fahrzeug){
-        System.out.println(fahrzeugDAO.getFahrzeugbyId(fahrzeug.getId()));
+    public void getFahrzeugInfo(int id){
+        Fahrzeug fahrzeug = fahrzeugDAO.getFahrzeugbyId(id);
+        if(fahrzeug == null){
+            System.out.println("Fahrzeug konnte nicht gefunden werden!");
+            return;
+        }
+        System.out.println();
     }
 
     public void addNewFahrzeug(Fahrzeug fahrzeug){
         fahrzeugDAO.speichereFahrzeug(fahrzeug);
     }
 
-    public void deleteFahrzeug(Fahrzeug fahrzeug){
-        fahrzeugDAO.loescheFahrzeug(fahrzeug.getId());
+    public void deleteFahrzeug(int id){
+        fahrzeugDAO.loescheFahrzeug(id);
     }
 
     public int amountOfAllFahrzeuge(){
@@ -36,14 +42,14 @@ public class FahrzeugManagement {
     public int amountOfAllLkw(){
         return (int) fahrzeugDAO.getFahrzeugList()
                 .stream()
-                .filter(x -> x.getClass().equals(Lkw.class))
+                .filter(x -> x instanceof Lkw)
                 .count();
     }
 
     public int amountOfAllPkw(){
         return (int) fahrzeugDAO.getFahrzeugList()
                 .stream()
-                .filter(x -> x.getClass().equals(Pkw.class))
+                .filter(x -> x instanceof Pkw)
                 .count();
     }
 
@@ -52,6 +58,9 @@ public class FahrzeugManagement {
                 .sum() / fahrzeugDAO.getFahrzeugList().size();
     }
 
+    public Fahrzeug getOldestFahrzeug(){
+        return fahrzeugDAO.getFahrzeugList().stream().max(Comparator.comparing(Fahrzeug::getAlter)).get();
+    }
 
 	
 	

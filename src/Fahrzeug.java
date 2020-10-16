@@ -4,6 +4,7 @@
  */
 
 import java.io.Serializable;
+import java.rmi.server.UID;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.time.LocalDate;
@@ -26,11 +27,11 @@ public abstract class Fahrzeug implements Serializable {
 		DecimalFormatSymbols dfs = DecimalFormatSymbols.getInstance();
 		dfs.setDecimalSeparator('.');
 		return new DecimalFormat("0.00", dfs);
-
 	}
 
-    public Fahrzeug(String marke, String modell, int baujahr, double grundPreis) {
+    public Fahrzeug(int id, String marke, String modell, int baujahr, double grundPreis) {
         int currentYear = Calendar.getInstance().get(Calendar.YEAR);
+        this.id = id;
         this.marke = marke;
         this.modell = modell;
         if(baujahr > currentYear){

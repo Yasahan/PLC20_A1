@@ -7,8 +7,8 @@ public class Pkw extends Fahrzeug {
 	
 	private static final long serialVersionUID = 1L;
 	private int letzteService;
-	public Pkw(String marke, String modell, int baujahr, double grundPreis, int letzteService) {
-		super(marke, modell, baujahr, grundPreis);
+	public Pkw(int id, String marke, String modell, int baujahr, double grundPreis, int letzteService) {
+		super(id, marke, modell, baujahr, grundPreis);
 		this.letzteService = letzteService;
 	}
 

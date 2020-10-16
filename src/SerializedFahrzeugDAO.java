@@ -43,7 +43,12 @@ public class SerializedFahrzeugDAO implements FahrzeugDAO {
 
     @Override
     public void loescheFahrzeug(int id) {
-        fahrzeuge.remove(getFahrzeugbyId(id));
+        Fahrzeug fahrzeug = getFahrzeugbyId(id);
+        if(fahrzeug == null){
+            System.out.println("Fahrzeug konnte nicht gefunden!");
+            return;
+        }
+        fahrzeuge.remove(fahrzeug);
         speichereAktuelleListe();
     }
 
