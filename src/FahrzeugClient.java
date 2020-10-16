@@ -12,15 +12,24 @@ public class FahrzeugClient {
 		// java -jar PLC_Aufgabe1.jar app Fahrzeuge
 
 		String dataName = args[0];
-		String method =  args[1];
-		String fahrzeugTyp = args[2];
-		int id = Integer.parseInt(args[3]);
-		String marke = args[4];
-		String modell = args[5];
-		int baujahr = Integer.parseInt(args[6]);
-		double grundPreis = Double.parseDouble(args[7]);
-		int letzteService = Integer.parseInt(args[8])
-				;
+		String fahrzeugTyp;
+		int id;
+		String marke;
+		String modell;
+		int baujahr;
+		double grundPreis;
+		int letzteService;
+
+/*		String dataName = "Fahrzeuge";
+		String method =  "add";
+		String fahrzeugTyp = "lkw";
+		int id = 5;
+		String marke = "Dodge";
+		String modell = "XP45";
+		int baujahr = 1995;
+		double grundPreis = 55000;
+		int letzteService = 2019;*/
+
 		File f = new File(dataName);
 		FahrzeugManagement fahrzeugManagement;
 
@@ -41,16 +50,22 @@ public class FahrzeugClient {
 			out.close();
 		}
 
-		switch (method){
+		switch (args[1]){
 			case "show" :
-				if(String.valueOf(id).isEmpty()){
+				if(args[3].isEmpty()){
 					fahrzeugManagement.getAllFahrzeugeInfo();
 				}
 				else {
-					fahrzeugManagement.getFahrzeugInfo(id);
+					fahrzeugManagement.getFahrzeugInfo(Integer.parseInt(args[3]));
 				}
 				break;
 			case "add" :
+				fahrzeugTyp = args[2];
+				id = Integer.parseInt(args[3]);
+				marke = args[4];
+				modell = args[5];
+				baujahr = Integer.parseInt(args[6]);
+				grundPreis = Double.parseDouble(args[7]);
 				if(fahrzeugTyp.isEmpty()){
 					System.out.println("Bitte geben Sie das Fahrzeugtyp an");
 				}
@@ -58,20 +73,21 @@ public class FahrzeugClient {
 					fahrzeugManagement.addNewFahrzeug(new Lkw(id, marke, modell, baujahr, grundPreis));
 				}
 				else if (fahrzeugTyp.toUpperCase().equals("PKW")){
+					letzteService = Integer.parseInt(args[8]);
 					fahrzeugManagement.addNewFahrzeug(new Pkw(id, marke, modell, baujahr, grundPreis, letzteService));
 				}
 				break;
 			case "del" :
-				fahrzeugManagement.deleteFahrzeug(id);
+				fahrzeugManagement.deleteFahrzeug(Integer.parseInt(args[3]));
 				break;
 			case "count" :
-				if(fahrzeugTyp.isEmpty()){
+				if(args[2].isEmpty()){
 					fahrzeugManagement.amountOfAllFahrzeuge();
 				}
-				else if(fahrzeugTyp.toUpperCase().equals("LKW")){
+				else if(args[2].toUpperCase().equals("LKW")){
 					fahrzeugManagement.amountOfAllLkw();
 				}
-				else if (fahrzeugTyp.toUpperCase().equals("PKW")){
+				else if (args[2].toUpperCase().equals("PKW")){
 					fahrzeugManagement.amountOfAllPkw();
 				}
 				break;
@@ -83,7 +99,6 @@ public class FahrzeugClient {
 				break;
 
 		}
-
 
 
 /*

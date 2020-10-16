@@ -20,7 +20,6 @@ public abstract class Fahrzeug implements Serializable {
 	private String modell;
 	private int baujahr;
 	private double grundPreis;
-	private static int idGenerator = 100001;
 	private int id;
 
 	public static DecimalFormat getDecimalFormat() {
@@ -40,7 +39,6 @@ public abstract class Fahrzeug implements Serializable {
             this.baujahr = baujahr;
         }
         this.grundPreis = grundPreis;
-        this.id = idGenerator++;
     }
 
 
