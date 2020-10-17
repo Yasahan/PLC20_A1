@@ -1,3 +1,4 @@
+import java.text.DecimalFormat;
 import java.util.Comparator;
 import java.util.stream.Collectors;
 
@@ -9,7 +10,7 @@ import java.util.stream.Collectors;
 public class FahrzeugManagement {
 
     private FahrzeugDAO fahrzeugDAO;
-
+    private static final DecimalFormat doubleFormat = new DecimalFormat(".00");
     public FahrzeugManagement(String dataName) {
         this.fahrzeugDAO = new SerializedFahrzeugDAO(dataName);
     }
@@ -65,9 +66,9 @@ public class FahrzeugManagement {
                 .count();
     }
 
-    public double averagePriceOfFahrzeuge(){
-        return fahrzeugDAO.getFahrzeugList().stream().mapToDouble(Fahrzeug::getGrundPreis)
-                .sum() / fahrzeugDAO.getFahrzeugList().size();
+    public String averagePriceOfFahrzeuge(){
+        return doubleFormat.format(fahrzeugDAO.getFahrzeugList().stream().mapToDouble(Fahrzeug::getGrundPreis)
+                .sum() / fahrzeugDAO.getFahrzeugList().size());
     }
 
     public Fahrzeug getOldestFahrzeug(){
