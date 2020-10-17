@@ -19,19 +19,8 @@ public class FahrzeugClient {
 		int baujahr;
 		double grundPreis;
 		int letzteService;
-
-/*		String dataName = "Fahrzeuge";
-		String method =  "add";
-		String fahrzeugTyp = "lkw";
-		int id = 5;
-		String marke = "Dodge";
-		String modell = "XP45";
-		int baujahr = 1995;
-		double grundPreis = 55000;
-		int letzteService = 2019;*/
-
+		FahrzeugManagement fahrzeugManagement = new FahrzeugManagement("Fahrzeuge");
 		File f = new File(dataName);
-		FahrzeugManagement fahrzeugManagement;
 
 		if(args.length < 2){
 			throw new IllegalArgumentException("Parameter ungueltig.");
@@ -52,11 +41,11 @@ public class FahrzeugClient {
 
 		switch (args[1]){
 			case "show" :
-				if(args[3].isEmpty()){
+				if(args.length <= 2){
 					fahrzeugManagement.getAllFahrzeugeInfo();
 				}
 				else {
-					fahrzeugManagement.getFahrzeugInfo(Integer.parseInt(args[3]));
+					fahrzeugManagement.getFahrzeugInfo(Integer.parseInt(args[2]));
 				}
 				break;
 			case "add" :
@@ -78,31 +67,30 @@ public class FahrzeugClient {
 				}
 				break;
 			case "del" :
-				fahrzeugManagement.deleteFahrzeug(Integer.parseInt(args[3]));
+				fahrzeugManagement.deleteFahrzeug(Integer.parseInt(args[2]));
 				break;
 			case "count" :
-				if(args[2].isEmpty()){
-					fahrzeugManagement.amountOfAllFahrzeuge();
+				if(args.length == 2){
+					System.out.println(fahrzeugManagement.amountOfAllFahrzeuge());
 				}
 				else if(args[2].toUpperCase().equals("LKW")){
-					fahrzeugManagement.amountOfAllLkw();
+					System.out.println(fahrzeugManagement.amountOfAllLkw());
 				}
 				else if (args[2].toUpperCase().equals("PKW")){
-					fahrzeugManagement.amountOfAllPkw();
+					System.out.println(fahrzeugManagement.amountOfAllPkw());
 				}
 				break;
 			case "meanprice" :
-				fahrzeugManagement.averagePriceOfFahrzeuge();
+				System.out.println(fahrzeugManagement.averagePriceOfFahrzeuge());
 				break;
 			case "oldest" :
-				fahrzeugManagement.getOldestFahrzeug();
+				System.out.println(fahrzeugManagement.getOldestFahrzeug());
 				break;
 
 		}
 
-
 /*
-		Pkw neuPkw = new Pkw(14, "Mercedes", "C-Classe", 1998, 1000.250, 2005);
+ 		Pkw neuPkw = new Pkw(14, "Mercedes", "C-Classe", 1998, 1000.250, 2005);
 		Pkw neuPkw2 = new Pkw(15, "Bmw", "M3", 2015, 512000.250, 2015);
 		Lkw neuPkw3 = new Lkw(16,"Audi", "A8", 2020, 25000);
 		Lkw neuPkw4 = new Lkw(17,"Ford", "Mustang", 2001, 1000.250);
@@ -111,8 +99,9 @@ public class FahrzeugClient {
 		fahrzeugManagement.addNewFahrzeug(neuPkw2);
 		fahrzeugManagement.addNewFahrzeug(neuPkw3);
 		fahrzeugManagement.addNewFahrzeug(neuPkw4);
+*/
 
-		fahrzeugManagement.getAllFahrzeugeInfo();
+/*
 		System.out.println(fahrzeugManagement.amountOfAllFahrzeuge());
 		System.out.println(fahrzeugManagement.amountOfAllLkw());
 		System.out.println(fahrzeugManagement.amountOfAllPkw());
@@ -120,6 +109,7 @@ public class FahrzeugClient {
 		System.out.println(fahrzeugManagement.averagePriceOfFahrzeuge());
 		fahrzeugManagement.getAllFahrzeugeInfo();*/
 
+		//fahrzeugManagement.getAllFahrzeugeInfo();
 	}
 
 

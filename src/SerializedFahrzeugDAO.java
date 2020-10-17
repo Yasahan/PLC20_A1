@@ -21,18 +21,22 @@ public class SerializedFahrzeugDAO implements FahrzeugDAO {
 
     @Override
     public List<Fahrzeug> getFahrzeugList() {
-        return fahrzeuge;
-    }
-
-    @Override
-    public Fahrzeug getFahrzeugbyId(int id) {
         try (FileInputStream fis = new FileInputStream(dateiName); ObjectInputStream ois = new ObjectInputStream(fis)) {
             this.fahrzeuge = (ArrayList<Fahrzeug>) ois.readObject();
         } catch (IOException | ClassNotFoundException e) {
             System.out.println("Fehler bei Serialisierung:");
             System.exit(1);
         }
-        return fahrzeuge.stream().parallel().filter(x -> x.getId() == id).findFirst().orElse(null);
+        return fahrzeuge;
+    }
+
+    @Override
+    public Fahrzeug getFahrzeugbyId(int id) {
+        getFahrzeugList();
+        return fahrzeuge.stream()
+                .parallel()
+                .filter(x -> x.getId() == id)
+                .findFirst().orElse(null);
     }
 
     @Override

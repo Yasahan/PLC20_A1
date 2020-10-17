@@ -27,14 +27,21 @@ public class FahrzeugManagement {
             System.out.println("Fahrzeug konnte nicht gefunden werden!");
             return;
         }
-        System.out.println();
+        System.out.println(fahrzeug);
     }
 
     public void addNewFahrzeug(Fahrzeug fahrzeug){
+        if(fahrzeugCheck(fahrzeug)){
+            System.out.println("Fahrzeug existiert bereits");
+            return;
+        }
         fahrzeugDAO.speichereFahrzeug(fahrzeug);
         System.out.println("Fahrzeug wurde erfolgreich hinzugefuegt!");
     }
 
+    public boolean fahrzeugCheck(Fahrzeug fahrzeug){
+        return fahrzeugDAO.getFahrzeugList().stream().anyMatch(x -> x.getId() == fahrzeug.getId());
+    }
     public void deleteFahrzeug(int id){
         fahrzeugDAO.loescheFahrzeug(id);
         System.out.println("Fahrzeug wurde erfolgreich geloescht!");
