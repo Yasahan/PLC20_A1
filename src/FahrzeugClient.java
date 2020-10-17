@@ -19,7 +19,7 @@ public class FahrzeugClient {
 		int baujahr;
 		double grundPreis;
 		int letzteService;
-		FahrzeugManagement fahrzeugManagement = new FahrzeugManagement("Fahrzeuge");
+		FahrzeugManagement fahrzeugManagement;
 		File f = new File(dataName);
 
 		if(args.length < 2){
@@ -38,7 +38,6 @@ public class FahrzeugClient {
 			fileOut.close();
 			out.close();
 		}
-
 		switch (args[1]){
 			case "show" :
 				if(args.length <= 2){
