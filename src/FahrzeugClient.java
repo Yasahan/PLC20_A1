@@ -49,11 +49,11 @@ public class FahrzeugClient {
 				break;
 			case "add" :
 				fahrzeugTyp = args[2];
+				grundPreis = Double.parseDouble(args[7]);
 				id = Integer.parseInt(args[3]);
+				baujahr = Integer.parseInt(args[6]);
 				marke = args[4];
 				modell = args[5];
-				baujahr = Integer.parseInt(args[6]);
-				grundPreis = Double.parseDouble(args[7]);
 				if(fahrzeugTyp.isEmpty()){
 					System.out.println("Bitte geben Sie das Fahrzeugtyp an");
 				}
@@ -61,6 +61,10 @@ public class FahrzeugClient {
 					fahrzeugManagement.addNewFahrzeug(new Lkw(id, marke, modell, baujahr, grundPreis));
 				}
 				else if (fahrzeugTyp.toUpperCase().equals("PKW")){
+					if(args.length != 9){
+						System.out.println("Parameter ungueltig.");
+						return;
+					}
 					letzteService = Integer.parseInt(args[8]);
 					fahrzeugManagement.addNewFahrzeug(new Pkw(id, marke, modell, baujahr, grundPreis, letzteService));
 				}
@@ -84,6 +88,9 @@ public class FahrzeugClient {
 				break;
 			case "oldest" :
 				System.out.println(fahrzeugManagement.getOldestFahrzeug());
+				break;
+			default:
+				System.out.println("Parameter ungueltig.");
 				break;
 
 		}

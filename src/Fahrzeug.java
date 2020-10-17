@@ -4,36 +4,32 @@
  */
 
 import java.io.Serializable;
-import java.rmi.server.UID;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
-import java.time.LocalDate;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.UUID;
 
 
 public abstract class Fahrzeug implements Serializable {
 
-	private static final long serialVersionUID = 1L;
-	private String marke;
-	private String modell;
-	private int baujahr;
-	private double grundPreis;
-	private int id;
+    private static final long serialVersionUID = 1L;
+    private String marke;
+    private String modell;
+    private int baujahr;
+    private double grundPreis;
+    private int id;
 
-	public static DecimalFormat getDecimalFormat() {
-		DecimalFormatSymbols dfs = DecimalFormatSymbols.getInstance();
-		dfs.setDecimalSeparator('.');
-		return new DecimalFormat("0.00", dfs);
-	}
+    public static DecimalFormat getDecimalFormat() {
+        DecimalFormatSymbols dfs = DecimalFormatSymbols.getInstance();
+        dfs.setDecimalSeparator('.');
+        return new DecimalFormat("0.00", dfs);
+    }
 
     public Fahrzeug(int id, String marke, String modell, int baujahr, double grundPreis) {
         int currentYear = Calendar.getInstance().get(Calendar.YEAR);
         this.id = id;
         this.marke = marke;
         this.modell = modell;
-        if(baujahr > currentYear){
+        if (baujahr > currentYear) {
             throw new IllegalArgumentException("das Baujahrdarf nicht in der Zukunft liegen");
         } else {
             this.baujahr = baujahr;
@@ -82,15 +78,15 @@ public abstract class Fahrzeug implements Serializable {
         this.id = id;
     }
 
-    public int getAlter(){
+    public int getAlter() {
         int currentYear = Calendar.getInstance().get(Calendar.YEAR);
-	    return currentYear-this.baujahr;
+        return currentYear - this.baujahr;
     }
 
     abstract int getRabatt();
 
-    public double getPreis(){
-        return this.grundPreis-getRabatt();
+    public double getPreis() {
+        return this.grundPreis - getRabatt();
     }
 
     @Override

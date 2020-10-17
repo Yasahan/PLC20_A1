@@ -1,6 +1,6 @@
 import java.text.DecimalFormat;
 import java.util.Comparator;
-import java.util.stream.Collectors;
+
 
 /**
  * @author <your-name-here>
@@ -75,6 +75,25 @@ public class FahrzeugManagement {
         return fahrzeugDAO.getFahrzeugList().stream().max(Comparator.comparing(Fahrzeug::getAlter)).get();
     }
 
+    String fahrzeugTyp;
+    int id;
+    String marke;
+    String modell;
+    int baujahr;
+    double grundPreis;
+    int letzteService;
+
+/*    public boolean parameterCheck(String typ, int id, int baujahr, double grundPreis, int letzteService){
+        boolean checkResult = false;
+        if(typ.toUpperCase().equals("LKW") || typ.toUpperCase().equals("PKW") ){
+            checkResult = true;
+        } else if (id){
+
+        }
+
+
+        return true;
+    }*/
 	
 	
 }
