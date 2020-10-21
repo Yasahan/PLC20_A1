@@ -5,8 +5,8 @@ import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 /**
- * @author <your-name-here>
- * Matrikelnummer:
+ * @author Yasahan Zengin
+ * Matrikelnummer: a1367563
  */
 
 public class SerializedFahrzeugDAO implements FahrzeugDAO {
@@ -49,7 +49,7 @@ public class SerializedFahrzeugDAO implements FahrzeugDAO {
     public void loescheFahrzeug(int id) {
         Fahrzeug fahrzeug = getFahrzeugbyId(id);
         if(fahrzeug == null){
-            System.out.println("Fahrzeug konnte nicht gefunden!");
+            System.out.println("Error: Fahrzeug nicht vorhanden. " +  "(id=" + id + ")");
             return;
         }
         fahrzeuge.remove(fahrzeug);

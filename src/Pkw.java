@@ -1,6 +1,8 @@
+import java.util.Calendar;
+
 /**
- * @author <your-name-here>
- * Matrikelnummer:
+ * @author Yasahan Zengin
+ * Matrikelnummer: a1367563
  */
 
 public class Pkw extends Fahrzeug {
@@ -14,7 +16,8 @@ public class Pkw extends Fahrzeug {
 
 	@Override
 	int getRabatt() {
-		int rabatt = this.getAlter()*5 + letzteService*2;
+		int currentYear = Calendar.getInstance().get(Calendar.YEAR);
+		int rabatt = this.getAlter()*5 + (currentYear - letzteService)*2;
 		return Math.min(rabatt, 15);
 	}
 
@@ -26,4 +29,15 @@ public class Pkw extends Fahrzeug {
 		this.letzteService = letzteService;
 	}
 
+	@Override
+	public String toString() {
+		return  "Typ:         " + "PKW\n" +
+				"Id:          " + this.getId() + "\n" +
+				"Marke:       " + this.getMarke() + "\n" +
+				"Modell:      " + this.getModell() + "\n" +
+				"Baujahr:     " + this.getBaujahr() + "\n" +
+				"Grundpreis:  " + getDecimalFormat().format(this.getGrundPreis()) + "\n" +
+				"Servicejahr: " + this.getLetzteService() + "\n" +
+				"Preis:       " + getDecimalFormat().format(this.getPreis());
+	}
 }

@@ -1,10 +1,14 @@
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 
 /**
- * @author <your-name-here>
- * Matrikelnummer:
+ * @author Yasahan Zengin
+ * Matrikelnummer: a1367563
  */
 
 public class FahrzeugManagement {
@@ -25,7 +29,7 @@ public class FahrzeugManagement {
     public void getFahrzeugInfo(int id){
         Fahrzeug fahrzeug = fahrzeugDAO.getFahrzeugbyId(id);
         if(fahrzeug == null){
-            System.out.println("Fahrzeug konnte nicht gefunden werden!");
+            System.out.println("Error: Fahrzeug nicht vorhanden." +  "(id= " + id + ")");
             return;
         }
         System.out.println(fahrzeug);
@@ -37,7 +41,6 @@ public class FahrzeugManagement {
             return;
         }
         fahrzeugDAO.speichereFahrzeug(fahrzeug);
-        System.out.println("Fahrzeug wurde erfolgreich hinzugefuegt!");
     }
 
     public boolean fahrzeugCheck(Fahrzeug fahrzeug){
@@ -45,7 +48,6 @@ public class FahrzeugManagement {
     }
     public void deleteFahrzeug(int id){
         fahrzeugDAO.loescheFahrzeug(id);
-        System.out.println("Fahrzeug wurde erfolgreich geloescht!");
     }
 
     public int amountOfAllFahrzeuge(){
@@ -67,33 +69,17 @@ public class FahrzeugManagement {
     }
 
     public String averagePriceOfFahrzeuge(){
-        return doubleFormat.format(fahrzeugDAO.getFahrzeugList().stream().mapToDouble(Fahrzeug::getGrundPreis)
+        return doubleFormat.format(fahrzeugDAO.getFahrzeugList().stream()
+                .mapToDouble(Fahrzeug::getPreis)
                 .sum() / fahrzeugDAO.getFahrzeugList().size());
     }
 
-    public Fahrzeug getOldestFahrzeug(){
-        return fahrzeugDAO.getFahrzeugList().stream().max(Comparator.comparing(Fahrzeug::getAlter)).get();
+    public void getOldestFahrzeug(){
+         int max_age = fahrzeugDAO.getFahrzeugList().stream().max(Comparator.comparing(Fahrzeug::getAlter)).get().getAlter();
+         List<Fahrzeug> ids = fahrzeugDAO.getFahrzeugList().stream().filter(x -> x.getAlter() == max_age).collect(Collectors.toList());
+         for(Fahrzeug fzg : ids){
+             System.out.println("Id: " + fzg.getId());
+         }
     }
 
-    String fahrzeugTyp;
-    int id;
-    String marke;
-    String modell;
-    int baujahr;
-    double grundPreis;
-    int letzteService;
-
-/*    public boolean parameterCheck(String typ, int id, int baujahr, double grundPreis, int letzteService){
-        boolean checkResult = false;
-        if(typ.toUpperCase().equals("LKW") || typ.toUpperCase().equals("PKW") ){
-            checkResult = true;
-        } else if (id){
-
-        }
-
-
-        return true;
-    }*/
-	
-	
 }

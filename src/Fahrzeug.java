@@ -1,6 +1,6 @@
 /**
- * @author <your-name-here>
- * Matrikelnummer:
+ * @author Yasahan Zengin
+ * Matrikelnummer: a1367563
  */
 
 import java.io.Serializable;
@@ -86,7 +86,7 @@ public abstract class Fahrzeug implements Serializable {
     abstract int getRabatt();
 
     public double getPreis() {
-        return this.grundPreis - getRabatt();
+        return this.grundPreis - (this.grundPreis * ((double)getRabatt()/100));
     }
 
     @Override

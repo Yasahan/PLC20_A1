@@ -23,10 +23,9 @@ public class FahrzeugClient {
 		File f = new File(dataName);
 
 		if(args.length < 2){
-			throw new IllegalArgumentException("Parameter ungueltig.");
+			throw new IllegalArgumentException("Error: Parameter ungueltig.");
 		}
 
-		// <Parameter>: show, add, del, count,meanprice, oldest.
 		if (f.isFile() && f.canRead()) {
 			fahrzeugManagement = new FahrzeugManagement(dataName);
 		}
@@ -48,25 +47,33 @@ public class FahrzeugClient {
 				}
 				break;
 			case "add" :
-				fahrzeugTyp = args[2];
-				grundPreis = Double.parseDouble(args[7]);
-				id = Integer.parseInt(args[3]);
-				baujahr = Integer.parseInt(args[6]);
-				marke = args[4];
-				modell = args[5];
-				if(fahrzeugTyp.isEmpty()){
-					System.out.println("Bitte geben Sie das Fahrzeugtyp an");
+				try{
+					fahrzeugTyp = args[2];
+					grundPreis = Double.parseDouble(args[7]);
+					id = Integer.parseInt(args[3]);
+					baujahr = Integer.parseInt(args[6]);
+					marke = args[4];
+					modell = args[5];
+				} catch (Exception e) {
+					throw new IllegalArgumentException("Error: Parameter ungueltig.");
 				}
-				else if (fahrzeugTyp.toUpperCase().equals("LKW")) {
+				if (fahrzeugTyp.toUpperCase().equals("LKW")) {
 					fahrzeugManagement.addNewFahrzeug(new Lkw(id, marke, modell, baujahr, grundPreis));
 				}
 				else if (fahrzeugTyp.toUpperCase().equals("PKW")){
 					if(args.length != 9){
-						System.out.println("Parameter ungueltig.");
+						System.out.println("Error: Parameter ungueltig.");
 						return;
 					}
 					letzteService = Integer.parseInt(args[8]);
+					if(letzteService < baujahr){
+						System.out.println("Error: Servicejahr ungueltig.");
+						return;
+					}
 					fahrzeugManagement.addNewFahrzeug(new Pkw(id, marke, modell, baujahr, grundPreis, letzteService));
+				}
+				else {
+					System.out.println("Error: Parameter ungueltig.");
 				}
 				break;
 			case "del" :
@@ -87,35 +94,15 @@ public class FahrzeugClient {
 				System.out.println(fahrzeugManagement.averagePriceOfFahrzeuge());
 				break;
 			case "oldest" :
-				System.out.println(fahrzeugManagement.getOldestFahrzeug());
+				fahrzeugManagement.getOldestFahrzeug();
 				break;
 			default:
-				System.out.println("Parameter ungueltig.");
+				System.out.println("Error: Parameter ungueltig.");
 				break;
 
 		}
 
-/*
- 		Pkw neuPkw = new Pkw(14, "Mercedes", "C-Classe", 1998, 1000.250, 2005);
-		Pkw neuPkw2 = new Pkw(15, "Bmw", "M3", 2015, 512000.250, 2015);
-		Lkw neuPkw3 = new Lkw(16,"Audi", "A8", 2020, 25000);
-		Lkw neuPkw4 = new Lkw(17,"Ford", "Mustang", 2001, 1000.250);
 
-		fahrzeugManagement.addNewFahrzeug(neuPkw);
-		fahrzeugManagement.addNewFahrzeug(neuPkw2);
-		fahrzeugManagement.addNewFahrzeug(neuPkw3);
-		fahrzeugManagement.addNewFahrzeug(neuPkw4);
-*/
-
-/*
-		System.out.println(fahrzeugManagement.amountOfAllFahrzeuge());
-		System.out.println(fahrzeugManagement.amountOfAllLkw());
-		System.out.println(fahrzeugManagement.amountOfAllPkw());
-		fahrzeugManagement.deleteFahrzeug(neuPkw2.getId());
-		System.out.println(fahrzeugManagement.averagePriceOfFahrzeuge());
-		fahrzeugManagement.getAllFahrzeugeInfo();*/
-
-		//fahrzeugManagement.getAllFahrzeugeInfo();
 	}
 
 
