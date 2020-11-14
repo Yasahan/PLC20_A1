@@ -25,6 +25,6 @@ public class Lkw extends Fahrzeug {
 				"Modell:      " + this.getModell() + "\n" +
 				"Baujahr:     " + this.getBaujahr() + "\n" +
 				"Grundpreis:  " + getDecimalFormat().format(this.getGrundPreis()) + "\n" +
-				"Preis:       " + this.getPreis();
+				"Preis:       " + getDecimalFormat().format(this.getPreis()) + "\n";
 	}
 }

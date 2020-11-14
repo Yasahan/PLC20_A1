@@ -6,7 +6,7 @@ import java.util.Calendar;
  */
 
 public class Pkw extends Fahrzeug {
-	
+
 	private static final long serialVersionUID = 1L;
 	private int letzteService;
 	public Pkw(int id, String marke, String modell, int baujahr, double grundPreis, int letzteService) {
@@ -38,6 +38,6 @@ public class Pkw extends Fahrzeug {
 				"Baujahr:     " + this.getBaujahr() + "\n" +
 				"Grundpreis:  " + getDecimalFormat().format(this.getGrundPreis()) + "\n" +
 				"Servicejahr: " + this.getLetzteService() + "\n" +
-				"Preis:       " + getDecimalFormat().format(this.getPreis());
+				"Preis:       " + getDecimalFormat().format(this.getPreis()) + "\n";
 	}
 }
